@@ -3,39 +3,42 @@ name: Run Python tests
 on: [push]
 
 jobs:
-  get-all-files:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: sigyl-actions/files-ls@v0.0.1
-        id: find_files
-      - uses: paulschuberth/regex-extract-action@v2.0.1
-        with:
-          haystack: ${{steps.find_files.outputs.files}}
-          needle: test_\w+\.py
-        id: filter_files
+  # get-all-files:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: sigyl-actions/files-ls@v0.0.1
+  #       id: find_files
+  #     - uses: paulschuberth/regex-extract-action@v2.0.1
+  #       with:
+  #         haystack: ${{steps.find_files.outputs.files}}
+  #         needle: test_\w+\.py
+  #       id: filter_files
 
-    outputs:
-      files: ${{steps.filter_files.outputs.matches}}
+  #   outputs:
+  #     files: ${{steps.filter_files.outputs.matches}}
 
   build:
-    name: Run tests
+    name: ${{ matrix.file.name }}
     needs: [get-all-files]
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.7", "3.8"]
-        file: ${{ fromJson(needs.get-all-files.outputs.files) }}
+        file:
+          - filename: test_addition.py
+            name: "Test Addition"
+          - filename: test_subtraction.py
+            name: "Test Subtraction"
 
     steps:
       - uses: szenius/set-timezone@v2.0
         with:
           timezoneLinux: "Europe/London"
       - uses: actions/checkout@v4
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python 3.7
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.7
       - name: Install dependencies
         run: pip install pytest pytest-md pytest-emoji
       - uses: pavelzw/pytest-action@v2
@@ -43,5 +46,4 @@ jobs:
           emoji: true
           verbose: false
           job-summary: true
-          custom
-          
+          custom-arguments: ${{ matrix.file.filename }}
