@@ -6,6 +6,6 @@ jobs:
   test-addition:
     runs-on: ubuntu-latest
     uses: ./.github/workflows/run_pytest.yaml
-    with:
-      file: test_addition.py
-      testname: Test Addition
+      with:
+        file: test_addition.py
+        testname: Test Addition
