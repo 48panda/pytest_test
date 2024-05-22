@@ -8,6 +8,10 @@ jobs:
     steps:
       - uses: sigyl-actions/files-ls@v0.0.1
         id: step1
+      - name: Dump Steps context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(steps) }}
+        run: echo "$GITHUB_CONTEXT"
     outputs:
       files: ${{steps.step1.outputs.files}}
   one:
