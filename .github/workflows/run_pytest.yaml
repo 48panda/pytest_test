@@ -20,7 +20,7 @@ jobs:
 
   build:
     name: ${{ matrix.file.name }}
-    needs: [get-all-files]
+    # needs: [get-all-files]
     runs-on: ubuntu-latest
     strategy:
       matrix:
