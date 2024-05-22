@@ -12,7 +12,7 @@ jobs:
       - uses: paulschuberth/regex-extract-action@v2.0.1
         with:
           haystack: ${{steps.find_files.outputs.files}}
-          needle: "test_\w+\.py"
+          needle: test_\w+\.py
         id: filter_files
 
     outputs:
