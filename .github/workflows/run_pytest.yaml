@@ -3,12 +3,20 @@ name: Run Python tests
 on: [push]
 
 jobs:
+  get-all-files:
+    steps:
+      -uses: sigyl-actions/files-ls@v0.0.1
+    outputs:
+      files: ${{steps.step1.outputs.files}}
+    
   build:
     name: Run tests
+    needs: [get-all-files]
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ["3.7", "3.8"]
+        file: ${{jobs.get-all-files.outputs.files}}
 
     steps:
       - uses: szenius/set-timezone@v1.2
@@ -26,3 +34,4 @@ jobs:
           emoji: true
           verbose: false
           job-summary: true
+          
