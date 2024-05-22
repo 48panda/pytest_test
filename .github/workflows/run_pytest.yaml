@@ -55,7 +55,7 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.7", "3.8"]
-        file: ${{ needs.get-all-files.outputs.files }}
+        file: ${{ fromJson(needs.get-all-files.outputs.files) }}
 
     steps:
       - uses: szenius/set-timezone@v1.2
