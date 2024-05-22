@@ -1,4 +1,4 @@
-name: Run pytest
+- name: "Run pytest"
   uses: pavelzw/pytest-action@v2
   on: [push]
   with:
