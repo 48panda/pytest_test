@@ -1,0 +1,10 @@
+name: Test Addition
+
+on: [push]
+
+jobs:
+  test-addition:
+    uses: ./.github/workflows/run_pytest.yml
+    with:
+      file: test_addition.py
+      testname: Test Addition
