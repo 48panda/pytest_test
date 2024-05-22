@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: sigyl-actions/files-ls@v0.0.1
+        id: step1
     outputs:
       files: ${{steps.step1.outputs.files}}
   one:
