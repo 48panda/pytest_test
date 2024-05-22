@@ -5,7 +5,7 @@ on: [push]
 jobs:
   get-all-files:
     steps:
-      -uses: sigyl-actions/files-ls@v0.0.1
+      - uses: sigyl-actions/files-ls@v0.0.1
     outputs:
       files: ${{steps.step1.outputs.files}}
     
